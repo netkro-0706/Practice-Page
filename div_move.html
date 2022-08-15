@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>div move</title>
+    <style>
+        html {
+            overflow: hidden;
+        }
+        html, body{
+            display: block;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+
+        .div_C {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        ul {
+            padding: 0;
+            height: 20px;
+        }
+
+        li {
+            list-style: none;
+            float: left;
+            margin-left: 10px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="div_C div0">
+        <button class="move_button" onclick="moveHome()">home</button>
+        <ul>
+            <li>div1</li>
+            <li>div2</li>
+            <li>div3</li>
+            <li>div4</li>
+            <li>div5</li>
+            <li>div6</li>
+            <li>div7</li>
+            <li>div8</li>
+            <li>div9</li>
+        </ul>
+    </div>
+
+    <div class="div_C div1" style="background-color: #f77;"></div>
+    <div class="div_C div2" style="background-color: orange;"></div>
+    <div class="div_C div3" style="background-color: yellow;"></div>
+    <div class="div_C div4" style="background-color: green;"></div>
+    <div class="div_C div5" style="background-color: blue;"></div>
+    <div class="div_C div6" style="background-color: navy;"></div>
+    <div class="div_C div7" style="background-color: violet;"></div>
+    <div class="div_C div8" style="background-color: black;"></div>
+    <div class="div_C div9" style="background-color: silver;"></div>
+
+    <script>
+        let html = document.querySelector("html");
+        let divHeight = document.querySelector(".div_C").clientHeight;
+        let page = 0;
+        let posTop;
+
+        window.addEventListener("mousewheel", function(e){
+            if(e.deltaY>0){
+                page++;
+                if(page>9){
+                    page=9;
+                    return;
+                }
+            } else if (e.deltaY<0){
+                page--;
+                if(page<0){
+                    page=0;
+                    return;
+                }
+            }
+
+            posTop = page * divHeight;
+            console.log(page, "posTop", posTop, divHeight);
+
+            html.scrollTo({top:posTop, behavior:"smooth"});
+        });
+
+
+    </script>
+    <script src="main.js"></script>
+</body>
+
+</html>

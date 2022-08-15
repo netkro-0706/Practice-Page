@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="math.css">
+    <style>
+        input{
+            width: 100px;
+        }
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button{
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 
+    <div style="border-bottom: 1px solid black; padding: 10px">
+        <p> </p>
+        <input type="number" class="Q_input"/>
+        <button onclick="Q_button()">입력</button>
+        <p class="Q_p"></p>
+    </div>
+    -->
+
+    <div style="border-bottom: 1px solid black; padding: 10px">
+        <p>10진수를 16진수로 출력</p>
+        <input type="number" class="Q1_input"/>
+        <button onclick="Q1_button()">입력</button>
+        <p class="Q1_p"></p>
+    </div>
+
+    <div style="border-bottom: 1px solid black; padding: 10px">
+        <p>입력받은 두개의 수 사이의 구구단 출력</p>
+        <input type="number" class="Q2_input_1"/>
+        <input type="number" class="Q2_input_2"/>
+        <button onclick="Q2_button()">입력</button>
+        <p class="Q2_p"></p>
+    </div>
+
+    <div style="border-bottom: 1px solid black; padding: 10px">
+        <p>입력받은 두개의 수의 최대 공약수(GCM) 구하기</p>
+        <input type="number" class="Q3_input_1"/>
+        <input type="number" class="Q3_input_2"/>
+        <button onclick="Q3_button()">입력</button>
+        <p class="Q3_p"></p>
+    </div>
+
+    <div style="border-bottom: 1px solid black; padding: 10px">
+        <p>입력된 금액으로 크림빵(500), 새우깡(700), 콜라(400)를 몇개 살 수 있는가 구하기(적어도 1개씩은 필요)</p>
+        <input type="number" class="Q4_input" placeholder="1600이상"/>
+        <button onclick="Q4_button()">입력</button>
+        <p class="Q4_p"></p>
+    </div>
+
+
+    <script src="math.js"></script>
+</body>
+
+</html>

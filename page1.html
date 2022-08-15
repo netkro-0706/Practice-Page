@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>page1</title>
+    <style>
+        .html,
+        .body,
+        .section,
+        .h1,
+        .div {
+            margin: 0;
+            padding: 0;
+        }
+
+        .body {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .html,
+        .body,
+        .section {
+            height: 300px;
+            width: 100%;
+        }
+
+        .section:nth-child(odd) {
+            background: lightgray;
+        }
+
+        .section {
+            position: relative;
+        }
+
+        .body .section {
+            position: absolute;
+            transition: 500ms cubic-bezier(1, 0, 0, 1);
+        }
+
+        .controlBtn {
+            position: absolute;
+            bottom: 3.5%;
+            right: 5%;
+            z-index: 100;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="move_button" onclick="moveHome()">home</button>
+
+
+    <div class="divs controlBtn">
+        <button class="btndir">Up</button>
+        <button class="btndir">Down</button>
+    </div>
+
+    <section class="section">
+        <div style="font-size:54px; color: black !important;">Test1</div>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo, tenetur blanditiis distinctio consequatur
+            quos vitae iure impedit a quibusdam facere aspernatur nam veritatis quae iusto similique dolores quam
+            earum perferendis.</p>
+    </section>
+    <section class="section">
+        <div style="font-size:54px; color: black !important;">Test1</div>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo, tenetur blanditiis distinctio consequatur
+            quos vitae iure impedit a quibusdam facere aspernatur nam veritatis quae iusto similique dolores quam
+            earum perferendis.</p>
+    </section>
+    <section class="section">
+        <div style="font-size:54px; color: black !important;">Test1</div>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo, tenetur blanditiis distinctio consequatur
+            quos vitae iure impedit a quibusdam facere aspernatur nam veritatis quae iusto similique dolores quam
+            earum perferendis.</p>
+    </section>
+    <section class="section">
+        <div style="font-size:54px; color: black !important;">Test1</div>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo, tenetur blanditiis distinctio consequatur
+            quos vitae iure impedit a quibusdam facere aspernatur nam veritatis quae iusto similique dolores quam
+            earum perferendis.</p>
+    </section>
+
+
+    <script>
+        const opt = {
+            scrollGauge: 0,
+            // 스크롤 수동 값
+            bodyClass: document.querySelector('div.body'),
+            // 섹션을 감싸는 태그
+            section: document.getElementsByClassName('section'),
+            // 섹션 노드 배열
+            sectionHeight() {
+                return this.section[0].clientHeight
+            },
+            // 섹션 기본 높이
+            maxValue() {
+                return (this.section.length - 1) * this.sectionHeight()
+            },
+            // 섹션 개수에 따른 최대 높이
+            currentSection() {
+                return parseInt(opt.scrollGauge / opt.sectionHeight())
+            },
+            // 현재 섹션 위치 (인덱싱)
+            limitValidate() {
+                if (this.scrollGauge < 0) this.scrollGauge = 0;
+                else if (this.scrollGauge > this.maxValue()) this.scrollGauge = this.maxValue();
+            },
+            // 스크롤 범위 체크
+            applyHeightValue(elem, idx, value) {
+                elem.style.bottom = -(this.sectionHeight() * idx) + value + 'px'
+            },
+            // 높이 값 적용
+            initialTopValue(value) {
+                [...this.section].forEach((elem, idx) => this.applyHeightValue(elem, idx, value))
+            },
+            // 섹션 전체에 높이 값 적용
+            scrollValue(value) {
+                return this.sectionHeight() * value
+            },
+            // 섹션 높이 값
+            controlSections(value) {
+                this.initialTopValue(this.scrollValue(value));
+            },
+            // 섹션 전체에 높이 값 적용
+            changeSection(val) {
+                return (opt.currentSection() - val) * opt.sectionHeight();
+            },
+            // 섹션 위치 값 변경 - 버튼 이벤트
+        }
+
+        let scrollHandler, btnHandler;
+
+        scrollHandler = function (e) {
+            if (!e.target.closest('div.body')) return;
+
+            opt.scrollGauge += e.deltaY;
+
+            opt.limitValidate();
+            opt.controlSections(opt.currentSection());
+        }
+
+        // 휠 이벤트 등록
+        window.addEventListener('wheel', scrollHandler);
+
+        btnHandler = function (e) {
+            const target = e.target;
+
+            if (!target.classList.contains('btndir')) return;
+
+            switch (target.textContent.toLowerCase()) {
+                case 'up': opt.scrollGauge = opt.changeSection(1); break;
+                case 'down': opt.scrollGauge = opt.changeSection(-1); break;
+            }
+
+            // 중복 부분!
+            opt.limitValidate();
+            opt.controlSections(opt.currentSection());
+        }
+
+        window.addEventListener('click', btnHandler);
+    </script>
+    <script src="main.js"></script>
+</body>
+
+</html>
