@@ -91,18 +91,35 @@ function Q4_button() {
 
     for (cream_num = 1; cream_num < 10; cream_num++) {
         cream_price = cream_num * menu.cream;
+        total_price = cream_price + shrimp_price + coke_price;
 
+        if (total_price >= money) {
+            console.log(coke_num, total_price);
+            resultHTML += `크림빵(${cream_num}개), 새우깡(${shrimp_num}봉지), 콜라(${coke_num}병)<br/>`;
+            cream_num = 1;
+            cream_price = menu.cream;
+            break;
+        }
         for (shrimp_num = 1; shrimp_num < 10; shrimp_num++) {
             shrimp_price = shrimp_num * menu.shrimp;
+            total_price = cream_price + shrimp_price + coke_price;
 
+            if (total_price >= money) {
+                console.log(coke_num, total_price);
+                resultHTML += `크림빵(${cream_num}개), 새우깡(${shrimp_num}봉지), 콜라(${coke_num}병)<br/>`;
+                shrimp_num = 1;
+                shrimp_price = menu.shrimp;
+                break;
+            }
             for (coke_num = 1; coke_num < 10; coke_num++) {
                 coke_price = coke_num * menu.coke;
                 total_price = cream_price + shrimp_price + coke_price;
 
-                console.log(total_price, money);
                 if (total_price >= money) {
                     resultHTML += `크림빵(${cream_num}개), 새우깡(${shrimp_num}봉지), 콜라(${coke_num}병)<br/>`;
-                    continue;
+                    coke_num = 1;
+                    coke_price = menu.coke;
+                    break;
                 }
 
             }
@@ -111,4 +128,50 @@ function Q4_button() {
 
 
     Q4_p.innerHTML = resultHTML;
+}
+
+let Q5_input = document.querySelector(".Q5_input");
+let Q5_p = document.querySelector(".Q5_p");
+
+function Q5_button(){
+    Q5_p.innerHTML = "";
+    let result = "";
+    const how_many = Number(Q5_input.value);
+    let init = 2;
+    let count = 0;
+
+    if(how_many<1 || how_many==null){
+        Q5_p.innerHTML = "1이상의 숫자를 입력하시오";
+        return;
+    }
+
+    //나눠서 0이 되면  숫자가 2개만이다
+    //소수의 카운터가 올라간다.
+    //소수의 카운터가 how_many와 같아지면 함수 종료
+    while(1){
+        let decimal = 0;
+        for(let div=1;div<=init;div++){
+            if(init%div==0){
+                decimal++;
+            }
+        }
+        
+        if(decimal==2){
+            count++;
+            result += `${init}, `;
+        }
+
+        if(count==how_many){
+            console.log("stop");
+            Q5_p.innerText = result.slice(0, result.length - 2);;
+            return;
+        }
+        init++
+        console.log("going?");
+        console.log("ll", result);
+    }
+
+
+
+
 }
